@@ -18,6 +18,8 @@ Half-up rounding is used. Please see https://docs.oracle.com/javase/8/docs/api/j
 
 ## Example Usage
 
-`System.out.printf("Amount of interest for £10000 is £%s", InterestCalculator.calculate(new BigDecimal(10000.00)));`
+`InterestCalculator calculator = new InterestCalculator();`
 
-`System.out.printf("Amount of interest for £98.99 is £%s", InterestCalculator.calculate(new BigDecimal(98.99)));`
+`System.out.printf("Amount of interest for £10000 is £%s", calculator.calculate(new BigDecimal(10000.00)));`
+
+`System.out.printf("Amount of interest for £98.99 is £%s", calculator.calculate(new BigDecimal(98.99)));`
