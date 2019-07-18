@@ -2,7 +2,6 @@ package com.calculator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,25 +12,35 @@ import java.util.Map;
  */
 public class InterestCalculator {
 
-  public static final int ZERO_VALUE = 0;
-  private static Map<BigDecimal,  BigDecimal> interestRanges = new LinkedHashMap<BigDecimal,  BigDecimal>();
+  private Map<BigDecimal, BigDecimal> interestRanges = new LinkedHashMap<BigDecimal, BigDecimal>();
 
-  /** Calculate the total amount of interest received for a given amount.
+  /**
+   * Initialize the constructor with a range of values and the associated
+   * values.
+   *
+   */
+  public InterestCalculator() {
+
+    interestRanges.put(new BigDecimal(5000), new BigDecimal(0.03));
+    interestRanges.put(new BigDecimal(1000), new BigDecimal(0.02));
+    interestRanges.put(BigDecimal.ZERO, new BigDecimal(0.01));
+  }
+
+  /**
+   * Calculate the total amount of interest received for a given amount.
    *
    * @param originalAmount - The base amount of money
    * @return The total interest from the base amount of money given
    */
-  public static BigDecimal calculate(final BigDecimal originalAmount) {
+  public BigDecimal calculate(final BigDecimal originalAmount) {
 
     BigDecimal remainingAmount = new BigDecimal(originalAmount.toString());
     BigDecimal calculatedInterest = BigDecimal.ZERO;
     Map<BigDecimal, BigDecimal> interestRanges = getInterestRanges();
-    Iterator<BigDecimal> rangeValues = interestRanges.keySet().iterator();
 
-    //Iterate through the list of range values, adding the interest as we progress
-    while (rangeValues.hasNext()) {
-      BigDecimal rangeValue = rangeValues.next();
-      if (originalAmount.compareTo(rangeValue) > ZERO_VALUE) {
+    for (BigDecimal rangeValue : interestRanges.keySet()) {
+
+      if (originalAmount.compareTo(rangeValue) > 0) {
         BigDecimal percentage = interestRanges.get(rangeValue);
         calculatedInterest = calculatedInterest.add(remainingAmount.subtract(rangeValue).multiply(percentage));
         remainingAmount = rangeValue;
@@ -45,13 +54,7 @@ public class InterestCalculator {
   /**
    * @return A Map of interest rates to be applied to amounts over a value.
    */
-  private static Map<BigDecimal, BigDecimal> getInterestRanges() {
-
-    if (interestRanges.isEmpty()) {
-      interestRanges.put(new BigDecimal(5000), new BigDecimal(0.03));
-      interestRanges.put(new BigDecimal(1000), new BigDecimal(0.02));
-      interestRanges.put(BigDecimal.ZERO, new BigDecimal(0.01));
-    }
+  private Map<BigDecimal, BigDecimal> getInterestRanges() {
     return interestRanges;
   }
 }
