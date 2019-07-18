@@ -2,7 +2,7 @@
 
 ## Summary
 
-This is a simple interest rate calculator that determines the interest rceived on a given value.
+This is an interest rate calculator that determines the interest rceived on a given value.
 
 The rates of interest are:
 
